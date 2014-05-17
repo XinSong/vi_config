@@ -20,9 +20,16 @@ set nobackup
 
 "auto run nerdtree
 let NERDTreeWinSize=23
-nmap fl :NERDTreeToggle<CR>
-autocmd VimEnter * NERDTree                                    
-autocmd TabEnter * NERDTreeMirror                              
+nnoremap <F1> :NERDTreeToggle<CR>
+"autocmd VimEnter * NERDTree
+autocmd TabEnter * NERDTreeMirror
 autocmd TabEnter * wincmd p
 let NERDTreeWinPos='left'  
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif   
+
+"taglist config
+nnoremap <F3> :TlistToggle<cr>
+let Tlist_Show_One_File = 1 
+let Tlist_Exit_OnlyWindow = 1
+let Tlist_Use_Right_Window = 1
+"autocmd VimEnter * TlistOpen
