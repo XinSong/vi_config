@@ -1,0 +1,19 @@
+#!/bin/bash
+
+function count()
+{
+    FILENAME=$1
+    FIELD=$2
+    awk 'BEGIN{OFS="\t";}
+        {sum+=$"'$FIELD'"}
+        END{print sum}' $FILENAME
+}
+function table()
+{
+    FILENAME=$1
+    FIELD=$2
+    awk 'BEGIN{OFS="\t";}
+        {sum[$"'$FIELD'"]++}
+        END{for(i in sum) print i,sum[i]}' $FILENAME |
+    sort -k2,2n
+}
