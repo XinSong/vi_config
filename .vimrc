@@ -1,9 +1,10 @@
 execute pathogen#infect()
-syntax enable
-syntax on
 filetype on
 filetype plugin indent on
+syntax enable
+syntax on
 language messages en_US
+let g:pydiction_location='~/.vim/bundle/pydiction/complete-dict'
 
 set tabstop=4
 set softtabstop=4
@@ -13,12 +14,16 @@ set autoindent
 set cindent
 set number
 set showmatch
-set encoding=gbk
+"set encoding=gbk
 set fileencodings=gbk,utf-8,latin-1
 set foldmethod=indent
 set foldlevel=99
 set modeline
 set nobackup
+
+"c-support
+let  g:C_UseTool_cmake    = 'yes' 
+let  g:C_UseTool_doxygen = 'yes' 
 
 "auto run nerdtree
 let NERDTreeWinSize=23

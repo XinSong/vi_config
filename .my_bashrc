@@ -4,7 +4,7 @@ function count()
 {
     FILENAME=$1
     FIELD=$2
-    awk 'BEGIN{OFS="\t";}
+    awk 'BEGIN{FS="\t";OFS="\t";}
         {sum+=$"'$FIELD'"}
         END{print sum}' $FILENAME
 }
@@ -12,8 +12,38 @@ function table()
 {
     FILENAME=$1
     FIELD=$2
-    awk 'BEGIN{OFS="\t";}
+    awk 'BEGIN{FS="\t";OFS="\t";}
         {sum[$"'$FIELD'"]++}
         END{for(i in sum) print i,sum[i]}' $FILENAME |
     sort -k2,2n
+}
+function sample()
+{
+    FILENAME=$1
+    RATE=$2
+	awk 'BEGIN{FS="\t";OFS="\t"}
+		{
+			if(rand()<"'${RATE}'")
+				print $0 > "'${FILENAME}'"".train"
+			else
+				print $0 > "'${FILENAME}'"".test"
+		}' ${FILENAME}
+}
+function oversample()
+{
+    FILENAME=$1
+    FIELD=$2
+    KEY=$3
+    MULTIPLE=$4
+    awk 'BEGIN{FS="\t";OFS="\t"}
+        {
+            if($"'${FIELD}'" == "'${KEY}'"){
+                for(i=1;i<=int("'${MULTIPLE}'");i++)
+                    print $0
+            }
+            else{
+                print $0
+            }
+        }' ${FILENAME} > temp
+    mv temp ${FILENAME}
 }
