@@ -9,7 +9,7 @@ let g:pydiction_location='~/.vim/bundle/pydiction/complete-dict'
 set tabstop=4
 set softtabstop=4
 set shiftwidth=4
-set expandtab
+autocmd FileType python set expandtab
 set autoindent
 set cindent
 set number
