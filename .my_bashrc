@@ -21,6 +21,9 @@ function sample()
 {
     FILENAME=$1
     RATE=$2
+    FLAG=`expr ${RATE} \< 1`
+    if [ ${FLAG} -eq 1 ]
+    then 
 	awk 'BEGIN{FS="\t";OFS="\t"}
 		{
 			if(rand()<"'${RATE}'")
@@ -28,6 +31,18 @@ function sample()
 			else
 				print $0 > "'${FILENAME}'"".test"
 		}' ${FILENAME}
+    else
+        awk 'BEGIN{FS="\t";OFS="\t";sample_number=int("'${RATE}'");}
+        {
+            if(NR <= sample_number)
+                sample_set[NR]=$0
+            else if(rand() < sample_number * 1.0 / NR)
+                sample_set[int(rand()*sample_number)+1] = $0
+        }END{
+            for(i in sample_set)
+                print i,sample_set[i] > "'${FILENAME}'"".train"
+        }' ${FILENAME}
+    fi
 }
 function oversample()
 {
