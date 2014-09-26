@@ -5,11 +5,12 @@ syntax enable
 syntax on
 language messages en_US
 let g:pydiction_location='~/.vim/bundle/pydiction/complete-dict'
+set tags=tags;
 
 set tabstop=4
 set softtabstop=4
 set shiftwidth=4
-autocmd FileType python set expandtab
+autocmd FileType python,cpp set expandtab
 set autoindent
 set cindent
 set number
