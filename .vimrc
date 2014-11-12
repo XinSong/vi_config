@@ -3,7 +3,7 @@ filetype on
 filetype plugin indent on
 syntax enable
 syntax on
-language messages en_US
+"language messages en_US
 let g:pydiction_location='~/.vim/bundle/pydiction/complete-dict'
 set tags=tags;
 

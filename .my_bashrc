@@ -60,6 +60,5 @@ function oversample()
             else{
                 print $0
             }
-        }' ${FILENAME} > temp
-    mv temp ${FILENAME}
+        }' ${FILENAME} 
 }
