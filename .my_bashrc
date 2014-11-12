@@ -2,16 +2,16 @@
 
 function count()
 {
-    FILENAME=$1
-    FIELD=$2
+    FIELD=$1
+    FILENAME=$2
     awk 'BEGIN{FS="\t";OFS="\t";}
         {sum+=$"'$FIELD'"}
         END{print sum}' $FILENAME
 }
 function table()
 {
-    FILENAME=$1
-    FIELD=$2
+    FIELD=$1
+    FILENAME=$2
     awk 'BEGIN{FS="\t";OFS="\t";}
         {sum[$"'$FIELD'"]++}
         END{for(i in sum) print i,sum[i]}' $FILENAME |
@@ -19,8 +19,8 @@ function table()
 }
 function sample()
 {
-    FILENAME=$1
-    RATE=$2
+    RATE=$1
+    FILENAME=$2
     FLAG=`expr ${RATE} \< 1`
     if [ ${FLAG} -eq 1 ]
     then 
@@ -44,12 +44,13 @@ function sample()
         }' ${FILENAME}
     fi
 }
+
 function oversample()
 {
-    FILENAME=$1
-    FIELD=$2
-    KEY=$3
-    MULTIPLE=$4
+    FIELD=$1
+    KEY=$2
+    MULTIPLE=$3
+    FILENAME=$4
     awk 'BEGIN{FS="\t";OFS="\t"}
         {
             if($"'${FIELD}'" == "'${KEY}'"){
