@@ -27,9 +27,9 @@ function sample()
 	awk 'BEGIN{FS="\t";OFS="\t"}
 		{
 			if(rand()<"'${RATE}'")
-				print $0 > "'${FILENAME}'"".train"
+				print $0 
 			else
-				print $0 > "'${FILENAME}'"".test"
+				print $0
 		}' ${FILENAME}
     else
         awk 'BEGIN{FS="\t";OFS="\t";sample_number=int("'${RATE}'");}
@@ -40,7 +40,7 @@ function sample()
                 sample_set[int(rand()*sample_number)+1] = $0
         }END{
             for(i in sample_set)
-                print i,sample_set[i] > "'${FILENAME}'"".train"
+                print sample_set[i]
         }' ${FILENAME}
     fi
 }
