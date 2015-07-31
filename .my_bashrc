@@ -8,15 +8,17 @@ function count()
         {sum+=$"'$FIELD'"}
         END{print sum}' $FILENAME
 }
+
 function table()
 {
     FIELD=$1
     FILENAME=$2
-    awk 'BEGIN{FS="\t";OFS="\t";}
-        {sum[$"'$FIELD'"]++}
-        END{for(i in sum) print i,sum[i]}' $FILENAME |
+    awk 'BEGIN{FS="\t";OFS="\t";total=0}
+        {sum[$"'$FIELD'"]++;total++}
+        END{for(i in sum) print i, sum[i], sum[i]*1.0/total}' $FILENAME |
     sort -k2,2n
 }
+
 function sample()
 {
     RATE=$1
@@ -27,9 +29,9 @@ function sample()
 	awk 'BEGIN{FS="\t";OFS="\t"}
 		{
 			if(rand()<"'${RATE}'")
-				print $0 
+				print $0  > "'${FILENAME}'"".train"
 			else
-				print $0
+				print $0 > "'${FILENAME}'"".test"
 		}' ${FILENAME}
     else
         awk 'BEGIN{FS="\t";OFS="\t";sample_number=int("'${RATE}'");}
