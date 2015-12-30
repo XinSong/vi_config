@@ -10,13 +10,13 @@ set tags=tags;
 set tabstop=4
 set softtabstop=4
 set shiftwidth=4
-autocmd FileType python,cpp set expandtab
+autocmd FileType python,cpp,php set expandtab
 set autoindent
 set cindent
 set number
 set showmatch
-"set encoding=gbk
-set fileencodings=gbk,utf-8,latin-1
+set encoding=utf-8
+set fileencodings=utf-8,gbk,latin-1
 set foldmethod=indent
 set foldlevel=99
 set modeline
