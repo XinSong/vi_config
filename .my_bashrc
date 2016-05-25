@@ -9,6 +9,56 @@ function count()
         END{print sum}' $FILENAME
 }
 
+function stat()
+{
+    FIELD=$1
+    FILENAME=$2
+    RECORD_NUM=`wc -l ${FILENAME} | awk '{print $1}'`
+    sort -t$'\t' -k${FIELD},${FIELD}g ${FILENAME} |
+    awk 'BEGIN{FS="\t";OFS="\t";}
+        {
+           if(NR == 1)
+               MIN = $"'$FIELD'"
+           else if(NR == int("'${RECORD_NUM}'" * 0.1))
+               print "10%------>", $"'$FIELD'"
+           else if(NR == int("'${RECORD_NUM}'" * 0.2))
+               print "20%------>", $"'$FIELD'"
+           else if(NR == int("'${RECORD_NUM}'" * 0.25))
+               percent_25 = $"'$FIELD'"
+           else if(NR == int("'${RECORD_NUM}'" * 0.3))
+               print "30%------>", $"'$FIELD'"
+           else if(NR == int("'${RECORD_NUM}'" * 0.4))
+               print "40%------>", $"'$FIELD'"
+           else if(NR == int("'${RECORD_NUM}'" * 0.5)){
+               percent_50 = $"'$FIELD'"
+               print "50%------>", $"'$FIELD'"
+            }
+           else if(NR == int("'${RECORD_NUM}'" * 0.6))
+               print "60%------>", $"'$FIELD'"
+           else if(NR == int("'${RECORD_NUM}'" * 0.7))
+               print "70%------>", $"'$FIELD'"
+           else if(NR == int("'${RECORD_NUM}'" * 0.75))
+               percent_75 = $"'$FIELD'"
+           else if(NR == int("'${RECORD_NUM}'" * 0.8))
+               print "80%------>", $"'$FIELD'"
+           else if(NR == int("'${RECORD_NUM}'" * 0.9))
+               print "90%------>", $"'$FIELD'"
+           else if(NR == "'${RECORD_NUM}'"){
+               print "100%------>", $"'$FIELD'"
+               MAX = $"'$FIELD'"
+            }
+           sum+=$"'$FIELD'"
+        }
+        END{print "____________________________________";
+            print "MIN=", MIN;
+            print "AVG=", sum/"'${RECORD_NUM}'";
+            print "MAX=", MAX;
+            print "25 percentile=", percent_25;
+            print "50 percentile=", percent_50;
+            print "75 percentile=", percent_75;
+        }'
+}
+
 function table()
 {
     FIELD=$1
@@ -26,13 +76,13 @@ function sample()
     FLAG=`expr ${RATE} \< 1`
     if [ ${FLAG} -eq 1 ]
     then 
-	awk 'BEGIN{FS="\t";OFS="\t"}
-		{
-			if(rand()<"'${RATE}'")
-				print $0  > "'${FILENAME}'"".train"
-			else
-				print $0 > "'${FILENAME}'"".test"
-		}' ${FILENAME}
+    awk 'BEGIN{FS="\t";OFS="\t"}
+        {
+            if(rand()<"'${RATE}'")
+                print $0  > "'${FILENAME}'"".train"
+            else
+                print $0 > "'${FILENAME}'"".test"
+        }' ${FILENAME}
     else
         awk 'BEGIN{FS="\t";OFS="\t";sample_number=int("'${RATE}'");}
         {
