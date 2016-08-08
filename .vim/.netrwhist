@@ -1,0 +1,7 @@
+let g:netrw_dirhistmax  =10
+let g:netrw_dirhist_cnt =5
+let g:netrw_dirhist_1='/Users/iV01d/Tools/googletest/googletest/Make'
+let g:netrw_dirhist_2='/Users/iV01d/Tools/googletest/googletest/make'
+let g:netrw_dirhist_3='/Users/iV01d/Tools/googletest/googletest'
+let g:netrw_dirhist_4='/Users/iV01d/Tools/mxnet/Make'
+let g:netrw_dirhist_5='/Users/iV01d/Tools/echarts/dist'
